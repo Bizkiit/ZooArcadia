@@ -1,0 +1,117 @@
+.animated-icon2 {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  margin: 0px;
+  transform: rotate(0deg);
+  transition: .5s ease-in-out;
+  cursor: pointer;
+}
+
+.animated-icon2 span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: .25s ease-in-out;
+}
+
+.animated-icon2 span {
+  background: #e3f2fd;
+}
+
+.animated-icon2 span:nth-child(1) {
+  top: 0px;
+}
+
+.animated-icon2 span:nth-child(2),
+.animated-icon2 span:nth-child(3) {
+  top: 10px;
+}
+
+.animated-icon2 span:nth-child(4) {
+  top: 20px;
+}
+
+.animated-icon2.open span:nth-child(1) {
+  top: 11px;
+  width: 0%;
+  left: 50%;
+}
+
+.animated-icon2.open span:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+.animated-icon2.open span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.animated-icon2.open span:nth-child(4) {
+  top: 11px;
+  width: 0%;
+  left: 50%;
+}
+
+.custom-navbar {
+  background-color: #F4A460;
+  height: 60px;
+  position: relative;
+  margin-bottom: -16px;
+  z-index: 1030; /* Assurez-vous que la barre de navigation a un z-index élevé */
+}
+
+.custom-navbar .navbar-brand {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  margin-top: -35px;
+}
+
+.custom-navbar .navbar-brand img {
+  max-height: 100%;
+  object-fit: contain;
+  margin-top: 30px;
+}
+
+.bg-body-tertiary {
+  width: 25%; /* Ajusté pour prendre toute la largeur */
+  background-color: #F4A460 !important;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  align-items: flex-start;
+  border-bottom-right-radius: 10px;
+  position: absolute;
+  z-index: 1040; /* Assurez-vous que le contenu déroulant a un z-index plus élevé */
+  top: 60px; /* Ajusté pour positionner le contenu juste en dessous de la navbar */
+}
+
+.btn-link {
+  border: none;
+  width: 100%; /* Ajusté pour prendre toute la largeur */
+  color: black;
+  background-color: transparent;
+  padding: 10px 15px;
+  text-align: left;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.btn-link:hover {
+  color: #D2691E;
+}
+
+.collapse.show {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .bg-body-tertiary {
+    width: 40%;
+  }
+}

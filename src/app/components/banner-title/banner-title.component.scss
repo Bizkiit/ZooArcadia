@@ -1,0 +1,27 @@
+.banner-title {
+    background-size: cover;
+    background-position: center;
+    padding: 50px 0;
+    h1 {
+      color: #FFFAF0;
+      font-size: 16px;
+    }
+
+    h2 {
+        color: #FFFAF0;
+        font-size: 12px;
+        margin-bottom: 50px;
+        font-style: italic;
+    }
+  
+    .btn {
+      background-color: #228B22;
+      color: black; // Couleur du texte du bouton
+      border: none; // Supprimer les bordures par défaut
+  
+      i {
+        color: #FFFAF0; // Couleur des étoiles
+      }
+    }
+  }
+  

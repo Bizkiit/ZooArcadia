@@ -1,0 +1,28 @@
+<div class="container my-5">
+  <!-- Premier bloc d'image à gauche -->
+  <div class="image-block">
+    <div class="bg-wrapper">
+      <img src="../../../assets/Girafe.jpg" alt="Les animaux" class="img-fluid">
+      <button class="btn btn-primary position-absolute end-0 bottom-0 me-3 mb-3">Les animaux</button>
+    </div>
+  </div>
+  
+  <!-- Deuxième bloc d'image à droite -->
+  <div class="image-block">
+    <div class="bg-wrapper">
+      <img src="../../../assets/Elephant.jpg" alt="Les habitats" class="img-fluid">
+      <button class="btn btn-primary position-absolute start-0 bottom-0 ms-3 mb-3" (click)="toggleHabitats()">Les habitats</button>
+    </div>
+  </div>
+  <div *ngIf="showHabitats">
+    <app-habitats></app-habitats>
+  </div>
+  
+  <!-- Troisième bloc d'image à gauche -->
+  <div class="image-block">
+    <div class="bg-wrapper">
+      <img src="../../../assets/Services.jpg" alt="Nos services" class="img-fluid">
+      <button class="btn btn-primary position-absolute end-0 bottom-0 me-3 mb-3">Nos services</button>
+    </div>
+  </div>
+</div>

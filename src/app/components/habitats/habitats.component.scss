@@ -1,0 +1,29 @@
+.caption-background {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0.25rem;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+  
+    h5, p {
+      margin: 0;
+    }
+    .view-button {
+        margin-bottom: 5px;
+        background-color: #228b22;
+        border: none;
+        border-radius: 0.25rem;
+        transition: background-color 0.3s;
+        font-size: 12px;
+
+        &:hover {
+            background-color: darken(#228b22, 10%);
+      }
+    }
+
+  }
+
+  .carousel-inner {
+    border-radius: 0.25rem;
+  }

@@ -1,0 +1,329 @@
+<app-header></app-header>
+<div class="admin-container">
+  <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="users-tab" data-bs-toggle="tab" href="#users" role="tab" aria-controls="users" aria-selected="true">Gestion des Utilisateurs</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="services-tab" data-bs-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">Gestion des Services</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="habitats-tab" data-bs-toggle="tab" href="#habitats" role="tab" aria-controls="habitats" aria-selected="false">Gestion des Habitats</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="animals-tab" data-bs-toggle="tab" href="#animals" role="tab" aria-controls="animals" aria-selected="false">Gestion des Animaux</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="adminTabsContent">
+    <!-- Utilisateurs Tab -->
+    <div class="tab-pane fade show active" id="users" role="tabpanel" aria-labelledby="users-tab">
+      <h2>Gestion des Utilisateurs</h2>
+      <div class="user-table mb-3">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Rôle</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.label }}</td>
+                <td>
+                  <button (click)="deleteUser(user.username)" class="btn btn-danger">Supprimer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-view">
+          <div *ngFor="let user of users" class="card">
+            <div class="card-body">
+              <div><strong>Prénom: </strong>{{ user.firstname }}</div>
+              <div><strong>Nom: </strong>{{ user.lastname }}</div>
+              <div><strong>Rôle: </strong>{{ user.label }}</div>
+              <div>
+                <button (click)="deleteUser(user.username)" class="btn btn-danger">Supprimer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="add-user-form mb-3">
+        <h3>Ajouter un Utilisateur</h3>
+        <form (ngSubmit)="addUser()">
+          <div class="form-group">
+            <label for="username">Username (Email)</label>
+            <input type="email" id="username" [(ngModel)]="newUser.username" name="username" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de Passe</label>
+            <input type="password" id="password" [(ngModel)]="newUser.password" name="password" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="lastname">Nom</label>
+            <input type="text" id="lastname" [(ngModel)]="newUser.lastname" name="lastname" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="firstname">Prénom</label>
+            <input type="text" id="firstname" [(ngModel)]="newUser.firstname" name="firstname" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="role">Rôle</label>
+            <select id="role" [(ngModel)]="newUser.label" name="label" required class="form-control">
+              <option value="Vétérinaire">Vétérinaire</option>
+              <option value="Employé">Employé</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+    </div>
+    <!-- Services Tab -->
+    <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-tab">
+      <h2>Gestion des Services</h2>
+      <div class="service-table mb-3">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let service of services">
+                <td>
+                  <input [(ngModel)]="service.name" class="form-control" (blur)="updateService(service)">
+                </td>
+                <td>
+                  <input [(ngModel)]="service.description" class="form-control" (blur)="updateService(service)">
+                </td>
+                <td>
+                  <button (click)="deleteService(service.serviceid)" class="btn btn-danger">Supprimer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-view">
+          <div *ngFor="let service of services" class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Nom</label>
+                <input [(ngModel)]="service.name" class="form-control" (blur)="updateService(service)">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <input [(ngModel)]="service.description" class="form-control" (blur)="updateService(service)">
+              </div>
+              <div>
+                <button (click)="deleteService(service.serviceid)" class="btn btn-danger">Supprimer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="add-service-form mb-3">
+        <h3>Ajouter un Service</h3>
+        <form (ngSubmit)="addService()">
+          <div class="form-group">
+            <label for="serviceName">Nom</label>
+            <input type="text" id="serviceName" [(ngModel)]="newService.name" name="name" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="serviceDescription">Description</label>
+            <input type="text" id="serviceDescription" [(ngModel)]="newService.description" name="description" required class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+    </div>
+    <!-- Habitats Tab -->
+    <div class="tab-pane fade" id="habitats" role="tabpanel" aria-labelledby="habitats-tab">
+      <h2>Gestion des Habitats</h2>
+      <div class="habitat-table mb-3">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Commentaire</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let habitat of habitats">
+                <td>
+                  <input [(ngModel)]="habitat.name" class="form-control" (blur)="updateHabitat(habitat)">
+                </td>
+                <td>
+                  <input [(ngModel)]="habitat.description" class="form-control" (blur)="updateHabitat(habitat)">
+                </td>
+                <td>
+                  <input [(ngModel)]="habitat.comment" class="form-control" (blur)="updateHabitat(habitat)">
+                </td>
+                <td>
+                  <button (click)="deleteHabitat(habitat.habitatid)" class="btn btn-danger">Supprimer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-view">
+          <div *ngFor="let habitat of habitats" class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Nom</label>
+                <input [(ngModel)]="habitat.name" class="form-control" (blur)="updateHabitat(habitat)">
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <input [(ngModel)]="habitat.description" class="form-control" (blur)="updateHabitat(habitat)">
+              </div>
+              <div class="form-group">
+                <label>Commentaire</label>
+                <input [(ngModel)]="habitat.comment" class="form-control" (blur)="updateHabitat(habitat)">
+              </div>
+              <div>
+                <button (click)="deleteHabitat(habitat.habitatid)" class="btn btn-danger">Supprimer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="add-habitat-form mb-3">
+        <h3>Ajouter un Habitat</h3>
+        <form (ngSubmit)="addHabitat()">
+          <div class="form-group">
+            <label for="habitatName">Nom</label>
+            <input type="text" id="habitatName" [(ngModel)]="newHabitat.name" name="name" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="habitatDescription">Description</label>
+            <input type="text" id="habitatDescription" [(ngModel)]="newHabitat.description" name="description" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="habitatComment">Commentaire</label>
+            <input type="text" id="habitatComment" [(ngModel)]="newHabitat.comment" name="comment" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="imageFile">Image</label>
+            <input type="file" id="imageFile" (change)="onFileChange($event)" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+    </div>
+    <!-- Animaux Tab -->
+    <div class="tab-pane fade" id="animals" role="tabpanel" aria-labelledby="animals-tab">
+      <h2>Gestion des Animaux</h2>
+      <div class="animal-table mb-3">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Race</th>
+                <th>Habitat</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let animal of animals">
+                <td>
+                  <input [(ngModel)]="animal.name" class="form-control" (blur)="updateAnimal(animal)">
+                </td>
+                <td>
+                  <select [(ngModel)]="animal.raceid" class="form-control" (change)="updateAnimal(animal)">
+                    <option *ngFor="let race of races" [value]="race.raceid">{{ race.label }}</option>
+                  </select>
+                </td>
+                <td>
+                  <select [(ngModel)]="animal.habitatid" class="form-control" (change)="updateAnimal(animal)">
+                    <option *ngFor="let habitat of habitats" [value]="habitat.habitatid">{{ habitat.name }}</option>
+                  </select>
+                </td>
+                <td>
+                  <button (click)="deleteAnimal(animal.animalid)" class="btn btn-danger">Supprimer</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-view">
+          <div *ngFor="let animal of animals" class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Nom</label>
+                <input [(ngModel)]="animal.name" class="form-control" (blur)="updateAnimal(animal)">
+              </div>
+              <div class="form-group">
+                <label>Race</label>
+                <select [(ngModel)]="animal.raceid" class="form-control" (change)="updateAnimal(animal)">
+                  <option *ngFor="let race of races" [value]="race.raceid">{{ race.label }}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Habitat</label>
+                <select [(ngModel)]="animal.habitatid" class="form-control" (change)="updateAnimal(animal)">
+                  <option *ngFor="let habitat of habitats" [value]="habitat.habitatid">{{ habitat.name }}</option>
+                </select>
+              </div>
+              <div>
+                <button (click)="deleteAnimal(animal.animalid)" class="btn btn-danger">Supprimer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="add-animal-form mb-3">
+        <h3>Ajouter un Animal</h3>
+        <form (ngSubmit)="addAnimal()">
+          <div class="form-group">
+            <label for="animalName">Nom</label>
+            <input type="text" id="animalName" [(ngModel)]="newAnimal.name" name="name" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="animalRace">Race</label>
+            <select id="animalRace" [(ngModel)]="newAnimal.raceid" name="raceid" required class="form-control">
+              <option *ngFor="let race of races" [value]="race.raceid">{{ race.label }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="animalHabitat">Habitat</label>
+            <select id="animalHabitat" [(ngModel)]="newAnimal.habitatid" name="habitatid" required class="form-control">
+              <option *ngFor="let habitat of habitats" [value]="habitat.habitatid">{{ habitat.name }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="imageFile">Image</label>
+            <input type="file" id="imageFile" (change)="onFileChange($event)" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+      <div class="add-race-form mb-3">
+        <h3>Ajouter une Race</h3>
+        <form (ngSubmit)="addRace()">
+          <div class="form-group">
+            <label for="raceLabel">Nom</label>
+            <input type="text" id="raceLabel" [(ngModel)]="newRace.label" name="label" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="raceDescription">Description</label>
+            <input type="text" id="raceDescription" [(ngModel)]="newRace.description" name="description" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

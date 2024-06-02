@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: transparent;
+}
+
+.image-block {
+  width: 80%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  &:nth-child(odd) {
+    align-self: flex-start;
+  }
+
+  &:nth-child(even) {
+    align-self: flex-end;
+  }
+
+  .bg-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    button {
+      position: absolute;
+      background-color: #228b22;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: darken(#228b22, 10%);
+      }
+    }
+  }
+}
+
+app-habitats {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
