@@ -1,0 +1,71 @@
+.veto-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  .report-form, 
+  .habitats-list {
+    margin-bottom: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  h2, h3 {
+    margin-top: 50px;
+  }
+  
+  .form-control {
+    width: 100%;
+  }
+  
+  .btn-primary {
+    background-color: #228B22;
+    border-color: #228B22;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .nav-link {
+    color: #F4A460;
+  
+    &:hover,
+    &.active {
+      color: #D2691E;
+    }
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+  }
+  
+  button {
+    margin-top: 10px;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-tabs .nav-link {
+      font-size: 14px;
+    }
+  
+    .form-control {
+      width: 100%;
+    }
+  
+    th {
+      font-weight: bolder;
+    }
+  }
+  
