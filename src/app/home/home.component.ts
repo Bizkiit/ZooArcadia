@@ -15,7 +15,7 @@ import { FooterComponent } from '../components/footer/footer.component';
     HeaderComponent,
     BannerTitleComponent,
     AccueilComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class HomeComponent {

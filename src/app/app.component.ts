@@ -17,7 +17,7 @@ import { AccueilComponent } from './components/accueil/accueil.component';
     HeaderComponent,
     FooterComponent,
     BannerTitleComponent,
-    AccueilComponent
+    AccueilComponent,
   ]
 })
 export class AppComponent {

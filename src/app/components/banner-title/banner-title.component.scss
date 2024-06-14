@@ -1,27 +1,72 @@
 .banner-title {
-    background-size: cover;
-    background-position: center;
-    padding: 50px 0;
-    h1 {
-      color: #FFFAF0;
-      font-size: 16px;
-    }
+  position: relative;
+  background-image: url('../../../assets/FondTitre.png');
+  background-size: cover;
+  background-position: center;
+  padding: 50px 0;
+}
 
-    h2 {
-        color: #FFFAF0;
-        font-size: 12px;
-        margin-bottom: 50px;
-        font-style: italic;
-    }
-  
-    .btn {
-      background-color: #228B22;
-      color: black; // Couleur du texte du bouton
-      border: none; // Supprimer les bordures par défaut
-  
-      i {
-        color: #FFFAF0; // Couleur des étoiles
-      }
-    }
+.banner-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Couche sombre */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.banner-title h1 {
+  color: #FFFAF0;
+  font-size: 16px; /* Taille par défaut pour les petits écrans */
+  position: relative;
+  z-index: 1;
+}
+
+.banner-title h2 {
+  color: #FFFAF0;
+  font-size: 12px; /* Taille par défaut pour les petits écrans */
+  margin-bottom: 50px;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.banner-title .btn {
+  background-color: #228B22;
+  color: black; /* Couleur du texte du bouton */
+  border: none; /* Supprimer les bordures par défaut */
+  padding: 0.5rem 1rem; /* Taille par défaut pour les petits écrans */
+  font-size: 1rem; /* Taille des étoiles par défaut pour les petits écrans */
+  position: relative;
+  z-index: 1;
+}
+
+.banner-title .btn i {
+  color: #FFFAF0; /* Couleur des étoiles */
+}
+
+@media (min-width: 768px) {
+  .banner-title::before {
+    opacity: 1; /* Applique l'assombrissement pour les écrans larges */
   }
-  
+
+  .banner-title h1 {
+    font-size: 32px; /* Taille plus grande pour les grands écrans */
+  }
+
+  .banner-title h2 {
+    font-size: 24px; /* Taille plus grande pour les grands écrans */
+  }
+
+  .banner-title .btn {
+    padding: 1rem 2rem; /* Taille plus grande pour les grands écrans */
+    font-size: 1rem; /* Taille plus grande pour le texte */
+  }
+
+  .banner-title .btn i {
+    font-size: 1.3rem; /* Taille plus grande pour les étoiles */
+  }
+}

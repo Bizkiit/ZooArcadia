@@ -222,108 +222,102 @@
         </form>
       </div>
     </div>
-    <!-- Animaux Tab -->
-    <div class="tab-pane fade" id="animals" role="tabpanel" aria-labelledby="animals-tab">
-      <h2>Gestion des Animaux</h2>
-      <div class="animal-table mb-3">
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Race</th>
-                <th>Habitat</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let animal of animals">
-                <td>
-                  <input [(ngModel)]="animal.name" class="form-control" (blur)="updateAnimal(animal)">
-                </td>
-                <td>
-                  <select [(ngModel)]="animal.raceid" class="form-control" (change)="updateAnimal(animal)">
-                    <option *ngFor="let race of races" [value]="race.raceid">{{ race.label }}</option>
-                  </select>
-                </td>
-                <td>
-                  <select [(ngModel)]="animal.habitatid" class="form-control" (change)="updateAnimal(animal)">
-                    <option *ngFor="let habitat of habitats" [value]="habitat.habitatid">{{ habitat.name }}</option>
-                  </select>
-                </td>
-                <td>
-                  <button (click)="deleteAnimal(animal.animalid)" class="btn btn-danger">Supprimer</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="card-view">
-          <div *ngFor="let animal of animals" class="card">
-            <div class="card-body">
-              <div class="form-group">
-                <label>Nom</label>
-                <input [(ngModel)]="animal.name" class="form-control" (blur)="updateAnimal(animal)">
-              </div>
-              <div class="form-group">
-                <label>Race</label>
-                <select [(ngModel)]="animal.raceid" class="form-control" (change)="updateAnimal(animal)">
-                  <option *ngFor="let race of races" [value]="race.raceid">{{ race.label }}</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Habitat</label>
-                <select [(ngModel)]="animal.habitatid" class="form-control" (change)="updateAnimal(animal)">
-                  <option *ngFor="let habitat of habitats" [value]="habitat.habitatid">{{ habitat.name }}</option>
-                </select>
-              </div>
-              <div>
-                <button (click)="deleteAnimal(animal.animalid)" class="btn btn-danger">Supprimer</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="add-animal-form mb-3">
-        <h3>Ajouter un Animal</h3>
-        <form (ngSubmit)="addAnimal()">
+<!-- Animaux Tab -->
+<div class="tab-pane fade" id="animals" role="tabpanel" aria-labelledby="animals-tab">
+  <h2>Gestion des Animaux</h2>
+  <div class="animal-table mb-3">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Race</th>
+            <th>Habitat</th>
+            <th>Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let animal of animals">
+            <td>
+              <input [(ngModel)]="animal.name" class="form-control" (blur)="updateAnimal(animal)">
+            </td>
+            <td>
+              <select [(ngModel)]="animal.raceid" class="form-control" (change)="updateAnimal(animal)">
+                <option *ngFor="let race of races" [value]="race.raceid">{{ race.label }}</option>
+              </select>
+            </td>
+            <td>
+              <select [(ngModel)]="animal.habitatid" class="form-control" (change)="updateAnimal(animal)">
+                <option *ngFor="let habitat of habitats" [value]="habitat.habitatid">{{ habitat.name }}</option>
+              </select>
+            </td>
+            <td>
+              <input type="file" (change)="onFileChange($event, animal)">
+            </td>
+            <td>
+              <button (click)="deleteAnimal(animal.animalid)" class="btn btn-danger">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-view">
+      <div *ngFor="let animal of animals" class="card">
+        <div class="card-body">
           <div class="form-group">
-            <label for="animalName">Nom</label>
-            <input type="text" id="animalName" [(ngModel)]="newAnimal.name" name="name" required class="form-control">
+            <label>Nom</label>
+            <input [(ngModel)]="animal.name" class="form-control" (blur)="updateAnimal(animal)">
           </div>
           <div class="form-group">
-            <label for="animalRace">Race</label>
-            <select id="animalRace" [(ngModel)]="newAnimal.raceid" name="raceid" required class="form-control">
+            <label>Race</label>
+            <select [(ngModel)]="animal.raceid" class="form-control" (change)="updateAnimal(animal)">
               <option *ngFor="let race of races" [value]="race.raceid">{{ race.label }}</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="animalHabitat">Habitat</label>
-            <select id="animalHabitat" [(ngModel)]="newAnimal.habitatid" name="habitatid" required class="form-control">
+            <label>Habitat</label>
+            <select [(ngModel)]="animal.habitatid" class="form-control" (change)="updateAnimal(animal)">
               <option *ngFor="let habitat of habitats" [value]="habitat.habitatid">{{ habitat.name }}</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="imageFile">Image</label>
-            <input type="file" id="imageFile" (change)="onFileChange($event)" class="form-control">
+            <label>Image</label>
+            <input type="file" (change)="onFileChange($event, animal)">
           </div>
-          <button type="submit" class="btn btn-primary">Ajouter</button>
-        </form>
-      </div>
-      <div class="add-race-form mb-3">
-        <h3>Ajouter une Race</h3>
-        <form (ngSubmit)="addRace()">
-          <div class="form-group">
-            <label for="raceLabel">Nom</label>
-            <input type="text" id="raceLabel" [(ngModel)]="newRace.label" name="label" required class="form-control">
+          <div>
+            <button (click)="deleteAnimal(animal.animalid)" class="btn btn-danger">Supprimer</button>
           </div>
-          <div class="form-group">
-            <label for="raceDescription">Description</label>
-            <input type="text" id="raceDescription" [(ngModel)]="newRace.description" name="description" class="form-control">
-          </div>
-          <button type="submit" class="btn btn-primary">Ajouter</button>
-        </form>
+        </div>
       </div>
     </div>
   </div>
+  <!-- Add Animal Form -->
+  <div class="add-animal-form mb-3">
+    <h3>Ajouter un Animal</h3>
+    <form (ngSubmit)="addAnimal()">
+      <!-- Other form fields -->
+      <div class="form-group">
+        <label for="imageFile">Image</label>
+        <input type="file" id="imageFile" (change)="onFileChange($event)" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+  </div>
+  <!-- Add Race Form -->
+  <div class="add-race-form mb-3">
+    <h3>Ajouter une Race</h3>
+    <form (ngSubmit)="addRace()">
+      <div class="form-group">
+        <label for="raceLabel">Nom</label>
+        <input type="text" id="raceLabel" [(ngModel)]="newRace.label" name="label" required class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="raceDescription">Description</label>
+        <input type="text" id="raceDescription" [(ngModel)]="newRace.description" name="description" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+  </div>
 </div>
+

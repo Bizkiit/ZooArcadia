@@ -62,7 +62,7 @@
   height: 60px;
   position: relative;
   margin-bottom: -16px;
-  z-index: 1030; /* Assurez-vous que la barre de navigation a un z-index élevé */
+  z-index: 1030;
 }
 
 .custom-navbar .navbar-brand {
@@ -79,7 +79,7 @@
 }
 
 .bg-body-tertiary {
-  width: 25%; /* Ajusté pour prendre toute la largeur */
+  width: 25%;
   background-color: #F4A460 !important;
   display: flex;
   flex-direction: column;
@@ -87,13 +87,13 @@
   align-items: flex-start;
   border-bottom-right-radius: 10px;
   position: absolute;
-  z-index: 1040; /* Assurez-vous que le contenu déroulant a un z-index plus élevé */
-  top: 60px; /* Ajusté pour positionner le contenu juste en dessous de la navbar */
+  z-index: 1040;
+  top: 60px;
 }
 
 .btn-link {
   border: none;
-  width: 100%; /* Ajusté pour prendre toute la largeur */
+  width: 100%;
   color: black;
   background-color: transparent;
   padding: 10px 15px;

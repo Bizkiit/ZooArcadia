@@ -34,14 +34,13 @@ export class AdminComponent implements OnInit {
   users: UserWithRole[] = [];
   services: Service[] = [];
   habitats: Habitat[] = [];
-  animals: Animal[] = [];
+  animals: AnimalWithImage[] = [];
   races: Race[] = [];
-  newAnimal: Partial<Animal> = {
+  newAnimal: Partial<AnimalWithImage> = {
     name: '',
     habitatid: 0,
     status: '',
-    raceid: 0,
-    rapportveterinaire: null
+    raceid: 0
   };
   newUser: UserZoo = {
     username: '',
@@ -50,13 +49,11 @@ export class AdminComponent implements OnInit {
     firstname: '',
     label: 'Employé'
   };
-
   newService: Service = {
     serviceid: 0,
     name: '',
     description: ''
   };
-
   newHabitat: HabitatWithImage = {
     habitatid: 0,
     name: '',
@@ -66,12 +63,10 @@ export class AdminComponent implements OnInit {
     habitatimagerelation: [],
     imageBase64: ''
   };
-
   newRace: Partial<Race> = {
     label: '',
     description: ''
   };
-
   selectedFile: File | null = null;
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
@@ -85,7 +80,7 @@ export class AdminComponent implements OnInit {
   }
 
   getAnimals(): void {
-    this.http.get<Animal[]>('https://localhost:7277/api/Animals').subscribe(data => {
+    this.http.get<AnimalWithImage[]>('https://localhost:7277/api/Animals').subscribe(data => {
       this.animals = data;
     });
   }
@@ -172,36 +167,36 @@ export class AdminComponent implements OnInit {
   }
 
   addAnimal(): void {
+    if (!this.newAnimal.name || !this.newAnimal.raceid || !this.newAnimal.habitatid) {
+      this.toastr.error('Veuillez remplir tous les champs');
+      return;
+    }
+
     const animalData = {
-      rapportveterinaireid: null,
       name: this.newAnimal.name,
       habitatid: this.newAnimal.habitatid,
-      status: "",
-      raceid: this.newAnimal.raceid
+      status: this.newAnimal.status || '',
+      raceid: this.newAnimal.raceid,
+      imageBase64: this.newAnimal.imageBase64 || ''
     };
-  
+
     if (!this.selectedFile) {
       this.sendAnimal(animalData);
       return;
     }
-  
+
     const reader = new FileReader();
     reader.onload = () => {
       const imageData = reader.result as string;
       const base64Data = imageData.split(',')[1];
-  
-      const animalWithImage = {
-        ...animalData,
-        imageBase64: base64Data
-      };
-  
-      this.sendAnimal(animalWithImage);
+      animalData.imageBase64 = base64Data;
+      this.sendAnimal(animalData);
     };
     reader.readAsDataURL(this.selectedFile!);
   }
-  
+
   sendAnimal(animal: any): void {
-    this.http.post<Animal>('https://localhost:7277/api/Animals', animal).subscribe(newAnimal => {
+    this.http.post<AnimalWithImage>('https://localhost:7277/api/Animals', animal).subscribe(newAnimal => {
       this.animals.push(newAnimal);
       this.resetNewAnimal();
       this.toastr.success('Animal ajouté avec succès');
@@ -212,14 +207,11 @@ export class AdminComponent implements OnInit {
 
   resetNewAnimal(): void {
     this.newAnimal = {
-      animalid: 0,
-      rapportveterinaireid: 0,
       name: '',
       habitatid: 0,
       status: '',
       raceid: 0,
-      rapportveterinaire: null,
-      animalimagerelation: []
+      imageBase64: ''
     };
     this.selectedFile = null;
   }
@@ -303,7 +295,29 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  updateAnimal(animal: Animal): void {
+  updateAnimal(animal: AnimalWithImage): void {
+    const animalData = {
+      ...animal,
+      imageBase64: animal.imageBase64 || ''
+    };
+
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imageData = reader.result as string;
+        const base64Data = imageData.split(',')[1];
+        animalData.imageBase64 = base64Data;
+        console.log(animalData);
+
+        this.sendUpdatedAnimal(animalData);
+      };
+      reader.readAsDataURL(this.selectedFile!);
+    } else {
+      this.sendUpdatedAnimal(animalData);
+    }
+  }
+
+  sendUpdatedAnimal(animal: AnimalWithImage): void {
     this.http.put(`https://localhost:7277/api/Animals/${animal.animalid}`, animal).subscribe(() => {
       this.toastr.success('Animal mis à jour avec succès');
     }, error => {
@@ -311,9 +325,20 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  onFileChange(event: any) {
+  onFileChange(event: any, animal?: AnimalWithImage) {
     if (event.target.files && event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Data = (reader.result as string).split(',')[1];
+        if (animal) {
+          animal.imageBase64 = base64Data;
+        } else {
+          this.newAnimal.imageBase64 = base64Data;
+        }
+      };
+      reader.readAsDataURL(file);
+      this.selectedFile = file;
     }
   }
 

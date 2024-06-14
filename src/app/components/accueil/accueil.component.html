@@ -1,28 +1,29 @@
 <div class="container my-5">
-  <!-- Premier bloc d'image à gauche -->
-  <div class="image-block">
-    <div class="bg-wrapper">
-      <img src="../../../assets/Girafe.jpg" alt="Les animaux" class="img-fluid">
-      <button class="btn btn-primary position-absolute end-0 bottom-0 me-3 mb-3">Les animaux</button>
-    </div>
+  <!-- Premier bloc d'image -->
+  <div class="image-block mb-4">
+    <img src="../../../assets/Girafe.jpg" alt="Les animaux" class="img-fluid">
+    <button class="btn btn-success" (click)="navigateToAnimals()">Les animaux</button>
   </div>
   
-  <!-- Deuxième bloc d'image à droite -->
-  <div class="image-block">
-    <div class="bg-wrapper">
-      <img src="../../../assets/Elephant.jpg" alt="Les habitats" class="img-fluid">
-      <button class="btn btn-primary position-absolute start-0 bottom-0 ms-3 mb-3" (click)="toggleHabitats()">Les habitats</button>
-    </div>
-  </div>
-  <div *ngIf="showHabitats">
-    <app-habitats></app-habitats>
+  <!-- Deuxième bloc d'image -->
+  <div class="image-block mb-4">
+    <img src="../../../assets/Elephant.jpg" alt="Les habitats" class="img-fluid">
+    <button class="btn btn-success" (click)="navigateToHabitats()">Les habitats</button>
   </div>
   
-  <!-- Troisième bloc d'image à gauche -->
-  <div class="image-block">
-    <div class="bg-wrapper">
-      <img src="../../../assets/Services.jpg" alt="Nos services" class="img-fluid">
-      <button class="btn btn-primary position-absolute end-0 bottom-0 me-3 mb-3">Nos services</button>
-    </div>
+  <!-- Troisième bloc d'image -->
+  <div class="image-block mb-4">
+    <img src="../../../assets/Services.jpg" alt="Nos services" class="img-fluid">
+    <button class="btn btn-success">Nos services</button>
   </div>
+</div>
+
+<!-- Liste des avis -->
+<div class="avis-container text-center">
+  <h2>Les avis des visiteurs</h2>
+  <div *ngFor="let avi of visibleAvis" class="avis-card">
+    <p class="avis-author">{{ avi.pseudo }} :</p> <!-- Affichage du pseudo -->
+    <p class="avis-text">{{ avi.comment }} </p> <!-- Affichage du commentaire -->
+  </div>
+  <button *ngIf="visibleAvis.length < avis.length" (click)="showMore()" class="btn btn-secondary">Voir plus</button>
 </div>
