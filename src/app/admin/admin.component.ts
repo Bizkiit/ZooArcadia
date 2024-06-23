@@ -10,6 +10,7 @@ import { Habitat } from '../../models/habitat.model';
 import { Animal } from '../../models/animal.model';
 import { Race } from '../../models/race.model';
 import { ToastrService } from 'ngx-toastr';
+import { ApiService } from '../services/ApiService';
 
 interface UserWithRole extends UserZoo {
   label: string;
@@ -69,7 +70,7 @@ export class AdminComponent implements OnInit {
   };
   selectedFile: File | null = null;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService, private apiService: ApiService) {}
 
   ngOnInit() {
     this.getUsers();
@@ -80,38 +81,38 @@ export class AdminComponent implements OnInit {
   }
 
   getAnimals(): void {
-    this.http.get<AnimalWithImage[]>('https://localhost:7277/api/Animals').subscribe(data => {
+    this.apiService.get<AnimalWithImage[]>('Animals').subscribe(data => {
       this.animals = data;
     });
   }
 
   getRaces(): void {
-    this.http.get<Race[]>('https://localhost:7277/api/Races').subscribe(data => {
+    this.apiService.get<Race[]>('Races').subscribe(data => {
       this.races = data;
     });
   }
 
   getUsers() {
-    this.http.get<UserWithRole[]>('https://localhost:7277/api/users').subscribe(data => {
+    this.apiService.get<UserWithRole[]>('users').subscribe(data => {
       this.users = data;
     });
   }
 
   getServices() {
-    this.http.get<Service[]>('https://localhost:7277/api/services').subscribe(data => {
+    this.apiService.get<Service[]>('services').subscribe(data => {
       this.services = data.sort((a, b) => a.serviceid - b.serviceid);
     });
   }
 
   getHabitats() {
-    this.http.get<Habitat[]>('https://localhost:7277/api/habitats').subscribe(data => {
+    this.apiService.get<Habitat[]>('habitats').subscribe(data => {
       this.habitats = data.sort((a, b) => a.habitatid - b.habitatid);
     });
   }
 
   addUser() {
     const user = { ...this.newUser };
-    this.http.post('https://localhost:7277/api/users', user).subscribe(() => {
+    this.apiService.post('users', user).subscribe(() => {
       this.getUsers();
       this.newUser = { username: '', password: '', lastname: '', firstname: '', label: 'Employé' };
       this.toastr.success('Utilisateur ajouté avec succès');
@@ -122,7 +123,7 @@ export class AdminComponent implements OnInit {
 
   addService() {
     const service = { ...this.newService };
-    this.http.post('https://localhost:7277/api/services', service).subscribe(() => {
+    this.apiService.post('services', service).subscribe(() => {
       this.getServices();
       this.newService = { serviceid: 0, name: '', description: '' };
       this.toastr.success('Service ajouté avec succès');
@@ -142,7 +143,7 @@ export class AdminComponent implements OnInit {
           imageBase64: base64Data
         };
 
-        this.http.post<Habitat>('https://localhost:7277/api/habitats', habitatWithImage).subscribe(() => {
+        this.apiService.post<Habitat>('habitats', habitatWithImage).subscribe(() => {
           this.getHabitats();
           this.newHabitat = {
             habitatid: 0,
@@ -196,7 +197,7 @@ export class AdminComponent implements OnInit {
   }
 
   sendAnimal(animal: any): void {
-    this.http.post<AnimalWithImage>('https://localhost:7277/api/Animals', animal).subscribe(newAnimal => {
+    this.apiService.post<AnimalWithImage>('Animals', animal).subscribe(newAnimal => {
       this.animals.push(newAnimal);
       this.resetNewAnimal();
       this.toastr.success('Animal ajouté avec succès');
@@ -222,7 +223,7 @@ export class AdminComponent implements OnInit {
       description: this.newRace.description
     };
 
-    this.http.post('https://localhost:7277/api/Races/AddRace', raceData).subscribe(
+    this.apiService.post('AddRace', raceData).subscribe(
       () => {
         this.getRaces();
         this.resetNewRace();
@@ -242,7 +243,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteUser(username: string) {
-    this.http.delete(`https://localhost:7277/api/users/${username}`).subscribe(() => {
+    this.apiService.delete(`users/${username}`).subscribe(() => {
       this.getUsers();
       this.toastr.success('Utilisateur supprimé avec succès');
     }, error => {
@@ -251,7 +252,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteService(serviceid: number) {
-    this.http.delete(`https://localhost:7277/api/services/${serviceid}`).subscribe(() => {
+    this.apiService.delete(`services/${serviceid}`).subscribe(() => {
       this.getServices();
       this.toastr.success('Service supprimé avec succès');
     }, error => {
@@ -260,7 +261,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteHabitat(habitatid: number) {
-    this.http.delete(`https://localhost:7277/api/habitats/${habitatid}`).subscribe(() => {
+    this.apiService.delete(`habitats/${habitatid}`).subscribe(() => {
       this.getHabitats();
       this.toastr.success('Habitat supprimé avec succès');
     }, error => {
@@ -269,7 +270,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteAnimal(animalId: number): void {
-    this.http.delete(`https://localhost:7277/api/Animals/${animalId}`).subscribe(() => {
+    this.apiService.delete(`Animals/${animalId}`).subscribe(() => {
       this.animals = this.animals.filter(a => a.animalid !== animalId);
       this.toastr.success('Animal supprimé avec succès');
     }, error => {
@@ -278,7 +279,7 @@ export class AdminComponent implements OnInit {
   }
 
   updateService(service: Service) {
-    this.http.put(`https://localhost:7277/api/services/${service.serviceid}`, service).subscribe(() => {
+    this.apiService.put(`services/${service.serviceid}`, service).subscribe(() => {
       this.getServices();
       this.toastr.success('Service mis à jour avec succès');
     }, error => {
@@ -287,7 +288,7 @@ export class AdminComponent implements OnInit {
   }
 
   updateHabitat(habitat: Habitat) {
-    this.http.put(`https://localhost:7277/api/habitats/${habitat.habitatid}`, habitat).subscribe(() => {
+    this.apiService.put(`habitats/${habitat.habitatid}`, habitat).subscribe(() => {
       this.getHabitats();
       this.toastr.success('Habitat mis à jour avec succès');
     }, error => {
@@ -318,7 +319,7 @@ export class AdminComponent implements OnInit {
   }
 
   sendUpdatedAnimal(animal: AnimalWithImage): void {
-    this.http.put(`https://localhost:7277/api/Animals/${animal.animalid}`, animal).subscribe(() => {
+    this.apiService.put(`Animals/${animal.animalid}`, animal).subscribe(() => {
       this.toastr.success('Animal mis à jour avec succès');
     }, error => {
       this.toastr.error('Erreur lors de la mise à jour de l\'animal');

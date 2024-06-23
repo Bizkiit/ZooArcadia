@@ -1,0 +1,19 @@
+<app-header></app-header>
+<div *ngIf="animal" class="animal-detail">
+    <div class="animal-card">
+        <ng-container *ngIf="animal?.animalimagerelation?.length">
+            <img *ngIf="animal?.animalimagerelation?.[0]?.image?.imagedata"
+                 [src]="'data:image/jpeg;base64,' + animal?.animalimagerelation?.[0]?.image?.imagedata"
+                 alt="{{ animal?.name }}"
+                 class="animal-image">
+      </ng-container>
+      <div class="animal-details">
+        <h1>{{ animal?.name }}</h1>
+        <p><strong><u>Race:</u></strong> {{ animal?.race?.label }}</p>
+        <p><strong><u>Habitat:</u></strong> {{ animal?.habitat?.name }}</p>
+        <p><strong><u>Description de la race:</u></strong> {{ animal?.race?.description }}</p>
+        <p><strong><u>État:</u></strong> {{ animal?.status }}</p>
+      </div>
+    </div>
+  </div>
+  

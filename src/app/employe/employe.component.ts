@@ -9,6 +9,7 @@ import { Animal } from '../../models/animal.model';
 import { Avis } from '../../models/avis.model';
 import { AnimalFeeding } from '../../models/animal-feeding';
 import { ToastrService } from 'ngx-toastr';
+import { ApiService } from '../services/ApiService';
 
 @Component({
   selector: 'app-employe',
@@ -34,7 +35,7 @@ export class EmployeComponent implements OnInit {
     quantity: 0
   };
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService, private apiService: ApiService) {}
 
   ngOnInit() {
     this.getServices();
@@ -43,7 +44,7 @@ export class EmployeComponent implements OnInit {
   }
 
   getServices() {
-    this.http.get<Service[]>('https://localhost:7277/api/services').subscribe(data => {
+    this.apiService.get<Service[]>('services').subscribe(data => {
       console.log('Services received:', data);  // Log the received data
       this.services = data.sort((a, b) => a.serviceid - b.serviceid);
     }, error => {
@@ -52,19 +53,19 @@ export class EmployeComponent implements OnInit {
   }
 
   getAnimals() {
-    this.http.get<Animal[]>('https://localhost:7277/api/Animals').subscribe(data => {
+    this.apiService.get<Animal[]>('Animals').subscribe(data => {
       this.animals = data;
     });
   }
 
   getReviews() {
-    this.http.get<Avis[]>('https://localhost:7277/api/Avis').subscribe(data => {
+    this.apiService.get<Avis[]>('Avis').subscribe(data => {
       this.reviews = data;
     });
   }
 
   updateService(service: Service) {
-    this.http.put(`https://localhost:7277/api/services/${service.serviceid}`, service).subscribe(() => {
+    this.apiService.put(`services/${service.serviceid}`, service).subscribe(() => {
       this.getServices();
       this.toastr.success('Service mis à jour avec succès');
     });
@@ -75,9 +76,9 @@ export class EmployeComponent implements OnInit {
       const feedingDateTime = `${this.newFeeding.feedingdate}T${this.newFeeding.feedingtime}:00`;
       const feeding = {
         ...this.newFeeding,
-        feedingdate: new Date(feedingDateTime).toISOString()  // Convert to ISO string in UTC
+        feedingdate: new Date(feedingDateTime).toISOString()
       };
-      this.http.post('https://localhost:7277/api/AnimalFeedings', feeding).subscribe(() => {
+      this.apiService.post('AnimalFeedings', feeding).subscribe(() => {
         this.newFeeding = {
           animalid: 0,
           feedingdate: '',
@@ -98,7 +99,7 @@ export class EmployeComponent implements OnInit {
       isvisible: !review.isvisible
     };
   
-    this.http.put('https://localhost:7277/api/Avis', updateAvis).subscribe(() => {
+    this.apiService.put('Avis', updateAvis).subscribe(() => {
       review.isvisible = !review.isvisible;
       this.toastr.success('Visibilité de l\'avis modifiée avec succès');
     });

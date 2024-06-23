@@ -1,5 +1,5 @@
 <app-header></app-header>
-<app-banner-title [title]="'Découvrez les aimaux de ZOO Arcadia !'" [subtitle]="'“Où chaque pas éveille une nouvelle merveille.”'"></app-banner-title>
+<app-banner-title [title]="'Découvrez les animaux de ZOO Arcadia !'" [subtitle]="'“Où chaque pas éveille une nouvelle merveille.”'"></app-banner-title>
 <div class="animals-container">
   <div *ngFor="let animal of animals" class="animal-card">
     <img *ngIf="animal.animalimagerelation && animal.animalimagerelation.length > 0 && animal.animalimagerelation[0].image"
@@ -11,6 +11,7 @@
       <p>Race: {{ animal.race?.label }}</p>
       <p>Description de la race: {{ animal.race?.description }}</p>
       <p>État: {{ animal.status }}</p>
+      <button (click)="viewDetails(animal.animalid)">Voir les détails</button>
     </div>
   </div>
 </div>

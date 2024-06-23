@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Animal } from '../../../../models/animal.model';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../../services/ApiService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-animaux-par-habitat',
@@ -14,17 +16,22 @@ export class AnimauxParHabitatComponent implements OnInit {
   @Input() habitatid!: number;
   animals: Animal[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAnimalsByHabitat();
   }
 
   getAnimalsByHabitat(): void {
-    this.http.get<Animal[]>(`https://localhost:7277/api/Animals/GetAnimalsByHabitat/${this.habitatid}`)
+    this.apiService.get<Animal[]>(`Animals/GetAnimalsByHabitat/${this.habitatid}`)
       .subscribe(
         data => this.animals = data,
         error => console.error('There was an error!', error)
       );
   }
+
+  viewDetails(animalId: number): void {
+    this.router.navigate(['/animaldetails', animalId]);
+  }
 }
+

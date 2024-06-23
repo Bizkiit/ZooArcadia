@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Habitat } from '../../../models/habitat.model';
 import { HeaderComponent } from '../header/header.component';
 import { AnimauxParHabitatComponent } from './animaux-par-habitat/animaux-par-habitat.component';
+import { ApiService } from '../../services/ApiService';
 
 @Component({
   selector: 'app-habitats',
@@ -17,7 +18,7 @@ export class HabitatsComponent implements OnInit {
   habitats: Habitat[] = [];
   selectedHabitatId: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.getHabitats().subscribe(data => {
@@ -35,7 +36,7 @@ export class HabitatsComponent implements OnInit {
   }
 
   getHabitats(): Observable<Habitat[]> {
-    return this.http.get<Habitat[]>('https://localhost:7277/api/Habitats');
+    return this.apiService.get<Habitat[]>('Habitats');
   }
 
   getImageSrc(imageData: string | Uint8Array): string {
@@ -52,7 +53,6 @@ export class HabitatsComponent implements OnInit {
   }
 
   toggleAnimals(habitatId: number): void {
-    console.log(this.habitats)
     if (this.selectedHabitatId === habitatId) {
       this.selectedHabitatId = null;
     } else {

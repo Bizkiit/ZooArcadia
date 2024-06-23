@@ -11,6 +11,7 @@ import { RapportVeterinaire } from '../../models/rapport-veterinaire.model';
 import { ToastrService } from 'ngx-toastr';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { ApiService } from '../services/ApiService';
 
 @Component({
   selector: 'app-veto',
@@ -42,7 +43,7 @@ export class VetoComponent implements OnInit {
     }
   };
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService, private apiService: ApiService) {}
 
   ngOnInit() {
     this.getAnimals();
@@ -50,13 +51,13 @@ export class VetoComponent implements OnInit {
   }
 
   getAnimals() {
-    this.http.get<Animal[]>('https://localhost:7277/api/Animals').subscribe(data => {
+    this.apiService.get<Animal[]>('Animals').subscribe(data => {
       this.animals = data;
     });
   }
 
   getHabitats() {
-    this.http.get<Habitat[]>('https://localhost:7277/api/Habitats').subscribe(data => {
+    this.apiService.get<Habitat[]>('Habitats').subscribe(data => {
       this.habitats = data;
     });
   }
@@ -69,7 +70,7 @@ export class VetoComponent implements OnInit {
         animalId: this.newReport.animal.animalid
       };
       delete report.animal;
-      this.http.post('https://localhost:7277/api/RapportVeterinaires', report)
+      this.apiService.post('RapportVeterinaires', report)
         .pipe(
           catchError(error => {
             console.error('Error adding report:', error);
@@ -107,8 +108,7 @@ export class VetoComponent implements OnInit {
 
   loadAnimalFeedings() {
     if (this.selectedAnimalId !== null) {
-      const url = `https://localhost:7277/api/AnimalFeedings?animalId=${this.selectedAnimalId}`;
-      this.http.get<AnimalFeeding[]>(url)
+      this.apiService.get<AnimalFeeding[]>(`AnimalFeedings?animalId=${this.selectedAnimalId}`)
         .pipe(
           catchError(error => {
             console.error('Error fetching animal feedings:', error);
@@ -131,7 +131,7 @@ export class VetoComponent implements OnInit {
             animals: habitat.animal || [],
             habitatImageRelations: habitat.habitatimagerelation || []
         };
-        this.http.put(`https://localhost:7277/api/RapportVeterinaires/UpdateHabitatComment`, updatedHabitat)
+        this.apiService.put(`RapportVeterinaires/UpdateHabitatComment`, updatedHabitat)
             .pipe(
                 catchError(error => {
                     console.error('Error updating habitat comment:', error);

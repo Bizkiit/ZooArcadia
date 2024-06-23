@@ -13,6 +13,7 @@ export interface Animal {
     raceid?: number;
     race?: Race;
     habitat?: Habitat;
+    clickcount?: number;
     rapportveterinaire?: RapportVeterinaire | null;
     animalimagerelation?: AnimalImageRelation[];
     animalfeeding?: AnimalFeeding[];
