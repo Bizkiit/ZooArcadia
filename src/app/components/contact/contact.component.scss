@@ -1,0 +1,29 @@
+/* contact.component.scss */
+.container {
+    max-width: 600px;
+    margin: auto;
+  
+    h1 {
+      margin-bottom: 20px;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+  
+      label {
+        font-weight: bold;
+      }
+  
+      .text-danger {
+        font-size: 0.9em;
+      }
+    }
+  
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: #D2691E;
+      border-color: #D2691E;
+    }
+  }
+  

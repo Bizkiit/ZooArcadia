@@ -6,13 +6,14 @@ import { Habitat } from '../../../models/habitat.model';
 import { HeaderComponent } from '../header/header.component';
 import { AnimauxParHabitatComponent } from './animaux-par-habitat/animaux-par-habitat.component';
 import { ApiService } from '../../services/ApiService';
+import { BannerTitleComponent } from '../banner-title/banner-title.component';
 
 @Component({
   selector: 'app-habitats',
   templateUrl: './habitats.component.html',
   styleUrls: ['./habitats.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, HeaderComponent, AnimauxParHabitatComponent]
+  imports: [CommonModule, BannerTitleComponent, HttpClientModule, HeaderComponent, AnimauxParHabitatComponent]
 })
 export class HabitatsComponent implements OnInit {
   habitats: Habitat[] = [];

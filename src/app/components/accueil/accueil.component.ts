@@ -52,4 +52,8 @@ export class AccueilComponent implements OnInit {
   navigateToAnimals(): void {
     this.router.navigate(['/animaux']);
   }
+
+  navigateToServices(): void {
+    this.router.navigate(['/zooservices']);
+  }
 }

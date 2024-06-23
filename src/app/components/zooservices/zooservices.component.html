@@ -1,0 +1,14 @@
+<app-header></app-header>
+<app-banner-title [title]="'Découvrez les services du ZOO Arcadia !'" [subtitle]="'“Où chaque pas éveille une nouvelle merveille.”'"></app-banner-title>
+<div class="container my-5">
+    <div *ngIf="services.length > 0; else noServices">
+      <div *ngFor="let service of services" class="service-card">
+        <h3>{{ service.name }}</h3>
+        <p>{{ service.description }}</p>
+      </div>
+    </div>
+    <ng-template #noServices>
+      <p>Aucun service disponible pour le moment.</p>
+    </ng-template>
+  </div>
+  

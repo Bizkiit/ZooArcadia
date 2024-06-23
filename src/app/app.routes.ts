@@ -8,6 +8,8 @@ import { EmployeComponent } from './employe/employe.component';
 import { HabitatsComponent } from './components/habitats/habitats.component';
 import { AnimauxComponent } from './animaux/animaux.component';
 import { AnimalDetailComponent } from './animaldetails/animaldetails.component';
+import { ZooservicesComponent } from './components/zooservices/zooservices.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,7 +20,9 @@ export const routes: Routes = [
     { path: 'employe', component: EmployeComponent },
     { path: 'habitats', component: HabitatsComponent },
     { path: 'animaux', component: AnimauxComponent },
-    { path: 'animaldetails/:id', component: AnimalDetailComponent }
+    { path: 'zooservices', component: ZooservicesComponent },
+    { path: 'animaldetails/:id', component: AnimalDetailComponent },
+    { path: 'contact', component: ContactComponent }
 ];
 
 @NgModule({
