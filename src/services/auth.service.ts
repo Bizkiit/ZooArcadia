@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   login(userZoo: UserZoo): Observable<Role> {
-    return this.apiService.post<Role>('Authentication', userZoo).pipe(
+    return this.apiService.post<Role>('Authentication/login', userZoo).pipe(
       tap(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
