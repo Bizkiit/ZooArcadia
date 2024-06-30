@@ -5,8 +5,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BannerTitleComponent } from './components/banner-title/banner-title.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
-import { FormsModule } from '@angular/forms';
-import { ContactComponent } from './components/contact/contact.component';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +17,7 @@ import { ContactComponent } from './components/contact/contact.component';
     HeaderComponent,
     FooterComponent,
     BannerTitleComponent,
-    AccueilComponent
+    AccueilComponent,
   ]
 })
 export class AppComponent {

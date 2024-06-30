@@ -11,6 +11,9 @@ import { Animal } from '../../models/animal.model';
 import { Race } from '../../models/race.model';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../services/ApiService';
+import { AnimalMongoDb } from '../../models/animal-mongo-db.model';
+import { NgChartsModule } from 'ng2-charts';
+import { ChartConfiguration, ChartOptions, ChartType, ChartTypeRegistry } from 'chart.js';
 
 interface UserWithRole extends UserZoo {
   label: string;
@@ -27,16 +30,37 @@ export interface AnimalWithImage extends Animal {
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, RouterModule, FormsModule],
+  imports: [HeaderComponent, CommonModule, RouterModule, FormsModule, NgChartsModule],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+  clickStatistics: AnimalMongoDb[] = [];
   users: UserWithRole[] = [];
   services: Service[] = [];
   habitats: Habitat[] = [];
   animals: AnimalWithImage[] = [];
   races: Race[] = [];
+
+  public barChartOptions: ChartOptions<'bar'> = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1
+        }
+      }
+    }
+  };
+  public barChartLabels: string[] = [];
+  public barChartLegend: boolean = true;
+  public barChartPlugins = [];
+
+  public barChartData: ChartConfiguration<'bar'>['data']['datasets'] = [
+    { data: [], label: 'Nombre de clics', backgroundColor: '#D2691E' }
+  ];
+
   newAnimal: Partial<AnimalWithImage> = {
     name: '',
     habitatid: 0,
@@ -78,6 +102,7 @@ export class AdminComponent implements OnInit {
     this.getHabitats();
     this.getAnimals();
     this.getRaces();
+    this.getClickStatistics();
   }
 
   getAnimals(): void {
@@ -341,6 +366,14 @@ export class AdminComponent implements OnInit {
       reader.readAsDataURL(file);
       this.selectedFile = file;
     }
+  }
+
+  getClickStatistics() {
+    this.apiService.get<AnimalMongoDb[]>(`Animals/clickStatistics`).subscribe(data => {
+      this.clickStatistics = data;
+      this.barChartLabels = this.clickStatistics.map(stat => stat.name).filter((name): name is string => !!name);
+      this.barChartData[0].data = this.clickStatistics.map(stat => stat.clickcount);
+    });
   }
 
   get selectedRaceId(): number {

@@ -13,6 +13,9 @@
     <li class="nav-item" role="presentation">
       <a class="nav-link" id="animals-tab" data-bs-toggle="tab" href="#animals" role="tab" aria-controls="animals" aria-selected="false">Gestion des Animaux</a>
     </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard</a>
+    </li>
   </ul>
   <div class="tab-content" id="adminTabsContent">
     <!-- Utilisateurs Tab -->
@@ -320,4 +323,26 @@
     </form>
   </div>
 </div>
+ <!-- Dashboard Tab -->
+ <div class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+  <div class="container">
+    <h2>Statistiques des Animaux</h2>
+    <div *ngIf="clickStatistics.length > 0; else noData">
+      <div style="display: block;">
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [type]="'bar'">
+        </canvas>
+      </div>
+    </div>
+    <ng-template #noData>
+      <p>Aucune donnée disponible.</p>
+    </ng-template>
+  </div>
+</div>
+
 

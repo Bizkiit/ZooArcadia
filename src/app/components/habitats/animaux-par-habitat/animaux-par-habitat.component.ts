@@ -31,7 +31,11 @@ export class AnimauxParHabitatComponent implements OnInit {
   }
 
   viewDetails(animalId: number): void {
-    this.router.navigate(['/animaldetails', animalId]);
+    this.apiService.post(`Animals/${animalId}/incrementClick`, {})
+      .subscribe(
+        () => this.router.navigate(['/animaldetails', animalId]),
+        error => console.error('There was an error!', error)
+      );
   }
 }
 
