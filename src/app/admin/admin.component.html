@@ -16,6 +16,9 @@
     <li class="nav-item" role="presentation">
       <a class="nav-link" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false">Dashboard</a>
     </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="vet-reports-tab" data-bs-toggle="tab" href="#vet-reports" role="tab" aria-controls="vet-reports" aria-selected="false">Rapports vétérinaires</a>
+    </li>    
   </ul>
   <div class="tab-content" id="adminTabsContent">
     <!-- Utilisateurs Tab -->
@@ -148,6 +151,32 @@
         </form>
       </div>
     </div>
+    <div class="footer-form">
+      <h3>Modifier les Informations du Footer</h3>
+      <form (ngSubmit)="updateFooter()">
+        <div class="form-group">
+          <label for="hours">Horaires</label>
+          <input type="text" id="hours" [(ngModel)]="footerData.hours" name="hours" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="address1">Adresse Ligne 1</label>
+          <input type="text" id="address1" [(ngModel)]="footerData.address1" name="address1" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="address2">Adresse Ligne 2</label>
+          <input type="text" id="address2" [(ngModel)]="footerData.address2" name="address2" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="address3">Adresse Ligne 3</label>
+          <input type="text" id="address3" [(ngModel)]="footerData.address3" name="address3" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" [(ngModel)]="footerData.email" name="email" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Mettre à Jour</button>
+      </form>
+    </div>       
     <!-- Habitats Tab -->
     <div class="tab-pane fade" id="habitats" role="tabpanel" aria-labelledby="habitats-tab">
       <h2>Gestion des Habitats</h2>
@@ -344,5 +373,48 @@
     </ng-template>
   </div>
 </div>
+<div class="tab-pane fade" id="vet-reports" role="tabpanel" aria-labelledby="vet-reports-tab">
+  <h2>Rapports vétérinaires</h2>
+  <div class="filter-container">
+    <input type="text" placeholder="Filtrer par nom d'animal" [(ngModel)]="filterAnimal" (input)="applyFilters()" class="filter-input">
+    <input type="date" [(ngModel)]="filterDate" (change)="applyFilters()" class="filter-input">
+  </div>
+  <div class="report-table mb-3">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Animal</th>
+            <th>Race</th>
+            <th>Statut</th>
+            <th>Détail</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of filteredReports">
+            <td>{{ report.animal.name }}</td>
+            <td>{{ report.animal.race?.label }}</td>
+            <td>{{ report.status }}</td>
+            <td>{{ report.detail }}</td>
+            <td>{{ report.date | date:'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-view">
+      <div *ngFor="let report of filteredReports" class="card">
+        <div class="card-body">
+          <div><strong>Animal: </strong>{{ report.animal.name }}</div>
+          <div><strong>Race: </strong>{{ report.animal.race?.label }}</div>
+          <div><strong>Statut: </strong>{{ report.status }}</div>
+          <div><strong>Détail: </strong>{{ report.detail }}</div>
+          <div><strong>Date: </strong>{{ report.date | date:'dd/MM/yyyy' }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 

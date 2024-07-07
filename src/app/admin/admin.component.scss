@@ -6,6 +6,19 @@
   border-radius: 8px;
 }
 
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .user-table,
 .service-table,
 .habitat-table,

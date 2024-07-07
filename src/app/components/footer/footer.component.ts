@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FooterService } from '../../services/FooterService';
 
 @Component({
   selector: 'app-footer',
@@ -8,6 +9,15 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [CommonModule]
 })
-export class FooterComponent {
 
+export class FooterComponent implements OnInit {
+  footerData: any;
+
+  constructor(private footerService: FooterService) {}
+
+  ngOnInit() {
+    this.footerService.footerData$.subscribe(data => {
+      this.footerData = data;
+    });
+  }
 }

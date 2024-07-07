@@ -14,6 +14,9 @@ import { ApiService } from '../services/ApiService';
 import { AnimalMongoDb } from '../../models/animal-mongo-db.model';
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions, ChartType, ChartTypeRegistry } from 'chart.js';
+import { RapportVeterinaire } from '../../models/rapport-veterinaire.model';
+import { FooterService } from '../services/FooterService';
+import { Footer } from '../../models/footer-model';
 
 interface UserWithRole extends UserZoo {
   label: string;
@@ -41,6 +44,10 @@ export class AdminComponent implements OnInit {
   habitats: Habitat[] = [];
   animals: AnimalWithImage[] = [];
   races: Race[] = [];
+  public filterAnimal: string = '';
+  public filterDate: string = '';
+  public reports: RapportVeterinaire[] = [];
+  public filteredReports: RapportVeterinaire[] = [];
 
   public barChartOptions: ChartOptions<'bar'> = {
     responsive: true,
@@ -60,6 +67,15 @@ export class AdminComponent implements OnInit {
   public barChartData: ChartConfiguration<'bar'>['data']['datasets'] = [
     { data: [], label: 'Nombre de clics', backgroundColor: '#D2691E' }
   ];
+
+  footerData: Footer = {
+    id: 0,
+    hours: '',
+    address1: '',
+    address2: '',
+    address3: '',
+    email: ''
+  };
 
   newAnimal: Partial<AnimalWithImage> = {
     name: '',
@@ -94,7 +110,7 @@ export class AdminComponent implements OnInit {
   };
   selectedFile: File | null = null;
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private apiService: ApiService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService, private apiService: ApiService, private footerService: FooterService) {}
 
   ngOnInit() {
     this.getUsers();
@@ -103,11 +119,23 @@ export class AdminComponent implements OnInit {
     this.getAnimals();
     this.getRaces();
     this.getClickStatistics();
+    this.fetchVetReports();
+    this.footerService.footerData$.subscribe(data => {
+      if (data) {
+        this.footerData = data;
+      }
+    });
   }
 
   getAnimals(): void {
     this.apiService.get<AnimalWithImage[]>('Animals').subscribe(data => {
       this.animals = data;
+    });
+  }
+
+  updateFooter() {
+    this.footerService.updateFooterData(this.footerData).subscribe(data => {
+      this.footerService.loadFooterData();
     });
   }
 
@@ -376,6 +404,33 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  fetchVetReports(): void {
+    this.apiService.get<RapportVeterinaire[]>('RapportVeterinaires').subscribe(
+      data => {
+        this.reports = data;
+        this.filteredReports = this.reports;
+      },
+      error => {
+        console.error('Error fetching veterinary reports', error);
+      }
+    );
+  }
+
+  applyFilters(): void {
+    this.filteredReports = this.reports.filter(report => {
+      const matchesAnimal = report.animal.name?.toLowerCase().includes(this.filterAnimal.toLowerCase());
+      const matchesDate = this.filterDate ? (report.date ? this.compareDates(new Date(report.date), new Date(this.filterDate)) : false) : true;
+      return matchesAnimal && matchesDate;
+    });
+  }
+  
+  compareDates(reportDate: Date, filterDate: Date): boolean {
+    return reportDate.getDate() === filterDate.getDate() &&
+          reportDate.getMonth() === filterDate.getMonth() &&
+          reportDate.getFullYear() === filterDate.getFullYear();
+  }
+  
+  
   get selectedRaceId(): number {
     return this.newAnimal.raceid ?? 0;
   }

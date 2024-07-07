@@ -7,6 +7,5 @@ export interface RapportVeterinaire {
     quantity: number;
     foodtype: string;
     status: string;
-    animalid: number;
     animal: Animal;
 }

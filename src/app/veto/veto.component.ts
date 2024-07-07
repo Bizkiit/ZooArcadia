@@ -63,13 +63,16 @@ export class VetoComponent implements OnInit {
   }
 
   addReport() {
-    if (this.newReport.date && this.newReport.animal) {
+    if (this.newReport.date && this.newReport.animal && this.newReport.animal.animalid) {
       const report = {
         ...this.newReport,
-        date: new Date(this.newReport.date).toISOString(),  // Convert to ISO string in UTC
-        animalId: this.newReport.animal.animalid
+        date: new Date(this.newReport.date).toISOString(),
+        animal: {
+          ...this.newReport.animal,
+          animalid: this.newReport.animal.animalid
+        }
       };
-      delete report.animal;
+      
       this.apiService.post('RapportVeterinaires', report)
         .pipe(
           catchError(error => {
@@ -105,6 +108,8 @@ export class VetoComponent implements OnInit {
       this.toastr.error('La date et l\'animal sont obligatoires');
     }
   }
+  
+  
 
   loadAnimalFeedings() {
     if (this.selectedAnimalId !== null) {

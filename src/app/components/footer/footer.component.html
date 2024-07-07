@@ -1,12 +1,11 @@
 <footer class="footer">
-    <div class="footer-content">
-        <p>Horaires : Mardi au Samedi 10h00 - 19h00</p>
-        <p class="address-part">Zoo Arcadia</p>
-        <p class="address-part">123 rue du fief</p>
-        <p class="address-part">14000 Caen</p>
-        <p class="email"><a href="mailto:zooarcadia&#64;gmail.com">zooarcadia&#64;gmail.com</a></p>
+    <div class="footer-content" *ngIf="footerData">
+      <p>Horaires : {{ footerData.hours }}</p>
+      <p class="address-part">{{ footerData.address1 }}</p>
+      <p class="address-part">{{ footerData.address2 }}</p>
+      <p class="address-part">{{ footerData.address3 }}</p>
+      <p class="email"><a href="mailto:{{ footerData.email }}">{{ footerData.email }}</a></p>
     </div>
-</footer>
-
+  </footer>  
 
 
