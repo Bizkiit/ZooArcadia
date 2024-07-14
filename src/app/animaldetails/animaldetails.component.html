@@ -1,11 +1,15 @@
 <app-header></app-header>
-<div *ngIf="animal" class="animal-detail">
+<div class="container mt-3">
+  <button class="btn btn-secondary mb-3 back-button" (click)="goBack()">
+    ← Retour
+  </button>
+  <div *ngIf="animal" class="animal-detail">
     <div class="animal-card">
-        <ng-container *ngIf="animal?.animalimagerelation?.length">
-            <img *ngIf="animal?.animalimagerelation?.[0]?.image?.imagedata"
-                 [src]="'data:image/jpeg;base64,' + animal?.animalimagerelation?.[0]?.image?.imagedata"
-                 alt="{{ animal?.name }}"
-                 class="animal-image">
+      <ng-container *ngIf="animal?.animalimagerelation?.length">
+        <img *ngIf="animal?.animalimagerelation?.[0]?.image?.imagedata"
+             [src]="'data:image/jpeg;base64,' + animal?.animalimagerelation?.[0]?.image?.imagedata"
+             alt="{{ animal?.name }}"
+             class="animal-image">
       </ng-container>
       <div class="animal-details">
         <h1>{{ animal?.name }}</h1>
@@ -16,4 +20,4 @@
       </div>
     </div>
   </div>
-  
+</div>

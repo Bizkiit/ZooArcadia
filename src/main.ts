@@ -36,7 +36,7 @@ bootstrapApplication(AppComponent, {
       JwtModule.forRoot({
         config: {
           tokenGetter: tokenGetter,
-          allowedDomains: ["localhost:7277"], // Change avec le domaine de ton API
+          allowedDomains: ["localhost:7277"],
           disallowedRoutes: []
         }}),
       NgxSpinnerModule.forRoot()

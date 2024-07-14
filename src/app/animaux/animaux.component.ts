@@ -6,13 +6,14 @@ import { Animal } from '../../models/animal.model';
 import { HeaderComponent } from '../components/header/header.component';
 import { BannerTitleComponent } from '../components/banner-title/banner-title.component';
 import { ApiService } from '../services/ApiService';
+import { FooterComponent } from '../components/footer/footer.component';
 
 @Component({
   selector: 'app-animaux',
   templateUrl: './animaux.component.html',
   styleUrls: ['./animaux.component.scss'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent, BannerTitleComponent]
+  imports: [CommonModule, HeaderComponent, BannerTitleComponent, FooterComponent]
 })
 export class AnimauxComponent implements OnInit {
   animals: Animal[] = [];

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,10 +13,12 @@ export class BannerTitleComponent {
 
   @Input() title: string = 'Zoo Arcadia';
   @Input() subtitle: string = '';
+  @Output() navigateToAvis = new EventEmitter<void>();
 
   constructor(private router: Router) {}
 
-  navigateToReviews() {
-    this.router.navigate(['/reviews']);
+  onNavigateToAvis(): void {
+    this.router.navigate(['/'], { fragment: 'avis-section' });
   }
+  
 }

@@ -1,49 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/ApiService';
-import { ToastrService } from 'ngx-toastr';
 import { Avis } from '../../../models/avis.model';
+import { FooterComponent } from '../footer/footer.component';
+import { AvisComponent } from "../../avis/avis.component";
 
 @Component({
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
   styleUrls: ['./accueil.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, FooterComponent, AvisComponent]
 })
-export class AccueilComponent implements OnInit {
-  avis: Avis[] = [];
-  visibleAvis: Avis[] = [];
-  avisLimit: number = 10;
-  currentIndex: number = 0;
+export class AccueilComponent  {
 
-  constructor(private apiService: ApiService, private toastr: ToastrService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.loadAvis();
-  }
-
-  loadAvis(): void {
-    this.apiService.get<Avis[]>('avis').subscribe(
-      (data) => {
-        this.avis = data;
-        this.updateVisibleAvis();
-      },
-      (error) => {
-        this.toastr.error('Erreur lors de la récupération des avis');
-      }
-    );
-  }
-
-  updateVisibleAvis(): void {
-    this.visibleAvis = this.avis.slice(0, this.currentIndex + this.avisLimit);
-  }
-
-  showMore(): void {
-    this.currentIndex += this.avisLimit;
-    this.updateVisibleAvis();
-  }
+  constructor(private router: Router) {}
 
   navigateToHabitats(): void {
     this.router.navigate(['/habitats']);

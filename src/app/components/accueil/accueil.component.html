@@ -17,13 +17,4 @@
     <button class="btn btn-success" (click)="navigateToServices()">Nos services</button>
   </div>
 </div>
-
-<!-- Liste des avis -->
-<div class="avis-container text-center">
-  <h2>Les avis des visiteurs</h2>
-  <div *ngFor="let avi of visibleAvis" class="avis-card">
-    <p class="avis-author">{{ avi.pseudo }} :</p> <!-- Affichage du pseudo -->
-    <p class="avis-text">{{ avi.comment }} </p> <!-- Affichage du commentaire -->
-  </div>
-  <button *ngIf="visibleAvis.length < avis.length" (click)="showMore()" class="btn btn-secondary">Voir plus</button>
-</div>
+<app-avis></app-avis>

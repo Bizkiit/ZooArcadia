@@ -1,4 +1,3 @@
-<!-- animaux-par-habitat.component.html -->
 <div class="animals-container">
   <div *ngFor="let animal of animals" class="animal-card">
     <img *ngIf="animal.animalimagerelation && animal.animalimagerelation.length > 0 && animal.animalimagerelation[0].image"
@@ -9,7 +8,7 @@
       <h3>{{ animal.name }}</h3>
       <p><strong><u>Race:</u></strong> {{ animal.race?.label }}</p>
       <p><strong><u>Habitat:</u></strong> {{ animal.habitat?.name }}</p>
-      <button (click)="viewDetails(animal.animalid)">Voir plus</button>
+      <button class="btn btn-primary details-button" (click)="viewDetails(animal.animalid)">Voir plus</button>
     </div>
   </div>
 </div>

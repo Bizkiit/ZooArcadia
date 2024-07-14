@@ -11,7 +11,8 @@
       <p>Race: {{ animal.race?.label }}</p>
       <p>Description de la race: {{ animal.race?.description }}</p>
       <p>État: {{ animal.status }}</p>
-      <button (click)="viewDetails(animal.animalid)">Voir les détails</button>
+      <button class="btn btn-primary details-button" (click)="viewDetails(animal.animalid)">Voir les détails</button>
     </div>
   </div>
 </div>
+<app-footer></app-footer>

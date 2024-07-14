@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from '../../services/ApiService';
 import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgIf, NgFor, HeaderComponent],
+  imports: [CommonModule, FormsModule, NgIf, NgFor, HeaderComponent, FooterComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })

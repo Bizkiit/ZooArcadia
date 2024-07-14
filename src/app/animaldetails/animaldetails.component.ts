@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/ApiService';
 import { Animal } from '../../models/animal.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { HeaderComponent } from '../components/header/header.component';
 
 @Component({
@@ -15,10 +15,14 @@ import { HeaderComponent } from '../components/header/header.component';
 export class AnimalDetailComponent implements OnInit {
   animal: Animal | undefined;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private location: Location) { }
 
   ngOnInit(): void {
     this.getAnimalDetail();
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   getAnimalDetail(): void {

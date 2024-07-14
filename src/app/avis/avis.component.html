@@ -1,0 +1,29 @@
+<div id="avis-section" class="avis-container text-center">
+    <div class="avis-header">
+      <h2>Les avis des visiteurs</h2>
+    </div>
+    <div *ngFor="let avi of visibleAvis" class="avis-card card mb-3">
+      <div class="card-body">
+        <p class="avis-author card-title">{{ avi.pseudo }} :</p>
+        <p class="avis-text card-text">{{ avi.comment }} </p>
+      </div>
+    </div>
+    <button *ngIf="visibleAvis.length < avis.length" (click)="showMore()" class="btn btn-secondary">Voir plus</button>
+  
+    <!-- Formulaire d'ajout d'avis -->
+    <div class="add-avis-form mt-5">
+      <h3>Ajouter un avis</h3>
+      <form (ngSubmit)="submitAvis()" #avisForm="ngForm">
+        <div class="form-group">
+          <label for="pseudo">Pseudo</label>
+          <input type="text" id="pseudo" class="form-control" [(ngModel)]="newAvis.pseudo" name="pseudo" required>
+        </div>
+        <div class="form-group">
+          <label for="comment">Commentaire</label>
+          <textarea id="comment" class="form-control" [(ngModel)]="newAvis.comment" name="comment" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="avisForm.invalid">Soumettre</button>
+      </form>
+    </div>
+  </div>
+  

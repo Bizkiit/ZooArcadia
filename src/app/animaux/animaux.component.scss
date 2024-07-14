@@ -39,6 +39,19 @@
   }
 }
 
+.details-button {
+  align-self: flex-end;
+  width: auto;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  background-color: #F4A460;
+  border-color: #F4A460;
+  &:hover {
+    color: #fff;
+    background-color: #D2691E;
+  }
+}
+
 @media (min-width: 768px) {
   .animal-card {
     width: 80%;

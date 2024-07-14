@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Role } from '../../../models/role.model';
 import { AuthService } from '../../services/Authservice';
 
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   currentUser: Role | null;
   title = 'ZooArcadia';
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     this.currentUser = null;
     this.authService.currentUser.subscribe(user => this.currentUser = user);
   }

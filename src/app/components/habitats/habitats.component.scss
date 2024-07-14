@@ -11,14 +11,14 @@
   }
   .view-button {
     margin-bottom: 5px;
-    background-color: #228b22;
+    background-color: #F4A460;
     border: none;
     border-radius: 0.25rem;
     transition: background-color 0.3s;
     font-size: 12px;
 
     &:hover {
-      background-color: darken(#228b22, 10%);
+      background-color: darken(#F4A460, 10%);
     }
   }
 }
@@ -41,4 +41,15 @@ h2 {
 
 .container {
   margin-top: 50px;
+}
+.btn-primary {
+  display: inline-block;
+  margin: 10px 0;
+  background-color: #F4A460;
+  border-color: #F4A460;
+
+  &:hover {
+    color: #fff;
+    background-color: #D2691E;
+  }
 }
