@@ -17,6 +17,7 @@ import { ChartConfiguration, ChartOptions, ChartType, ChartTypeRegistry } from '
 import { RapportVeterinaire } from '../../models/rapport-veterinaire.model';
 import { FooterService } from '../services/FooterService';
 import { Footer } from '../../models/footer-model';
+import { AuthService } from '../services/Authservice';
 
 interface UserWithRole extends UserZoo {
   label: string;
@@ -110,7 +111,7 @@ export class AdminComponent implements OnInit {
   };
   selectedFile: File | null = null;
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private apiService: ApiService, private footerService: FooterService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService, private apiService: ApiService, private footerService: FooterService, private authService: AuthService) {}
 
   ngOnInit() {
     this.getUsers();
@@ -146,8 +147,10 @@ export class AdminComponent implements OnInit {
   }
 
   getUsers() {
-    this.apiService.get<UserWithRole[]>('users').subscribe(data => {
+    this.apiService.get<UserWithRole[]>('users', true).subscribe(data => {
       this.users = data;
+    }, error => {
+      console.error('Failed to fetch users', error);
     });
   }
 

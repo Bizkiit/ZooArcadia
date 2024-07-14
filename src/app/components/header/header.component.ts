@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Role } from '../../../models/role.model';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../services/Authservice';
 
 @Component({
   selector: 'app-header',

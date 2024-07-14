@@ -6,10 +6,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app/app.routes';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './app/services/Authservice';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -28,6 +33,12 @@ bootstrapApplication(AppComponent, {
         tapToDismiss: false,
         progressBar: true,
       }),
+      JwtModule.forRoot({
+        config: {
+          tokenGetter: tokenGetter,
+          allowedDomains: ["localhost:7277"], // Change avec le domaine de ton API
+          disallowedRoutes: []
+        }}),
       NgxSpinnerModule.forRoot()
     ),
     AuthService
