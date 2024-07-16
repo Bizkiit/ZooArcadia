@@ -7,6 +7,7 @@ import { HeaderComponent } from '../components/header/header.component';
 import { BannerTitleComponent } from '../components/banner-title/banner-title.component';
 import { ApiService } from '../services/ApiService';
 import { FooterComponent } from '../components/footer/footer.component';
+import { AnimalDataService } from '../services/AnimalDataService';
 
 @Component({
   selector: 'app-animaux',
@@ -18,18 +19,31 @@ import { FooterComponent } from '../components/footer/footer.component';
 export class AnimauxComponent implements OnInit {
   animals: Animal[] = [];
 
-  constructor(private http: HttpClient, private apiService: ApiService, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService,
+    private router: Router,
+    private animalDataService: AnimalDataService
+  ) { }
 
   ngOnInit(): void {
     this.getAnimals();
   }
 
   getAnimals(): void {
-    this.apiService.get<Animal[]>('Animals')
-      .subscribe(
-        data => this.animals = data,
-        error => console.error('There was an error!', error)
-      );
+    const cachedAnimals = this.animalDataService.getAnimals();
+    if (cachedAnimals && cachedAnimals.length > 0) {
+      this.animals = cachedAnimals;
+    } else {
+      this.apiService.get<Animal[]>('Animals')
+        .subscribe(
+          data => {
+            this.animals = data;
+            this.animalDataService.setAnimals(data);
+          },
+          error => console.error('There was an error!', error)
+        );
+    }
   }
 
   viewDetails(animalId: number): void {

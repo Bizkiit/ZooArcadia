@@ -35,6 +35,12 @@
       margin-bottom: 5px;
       font-size: 14px;
       color: #666;
+
+      .title {
+        text-decoration: underline;
+        font-weight: bold;
+        color: #333;
+      }
     }
   }
 }

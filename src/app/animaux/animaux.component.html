@@ -8,9 +8,9 @@
          class="animal-image">
     <div class="animal-details">
       <h3>{{ animal.name }}</h3>
-      <p>Race: {{ animal.race?.label }}</p>
-      <p>Description de la race: {{ animal.race?.description }}</p>
-      <p>État: {{ animal.status }}</p>
+      <p><span class="title">Race:</span> {{ animal.race?.label }}</p>
+      <p><span class="title">Description de la race:</span> {{ animal.race?.description }}</p>
+      <p><span class="title">État:</span> {{ animal.status }}</p>
       <button class="btn btn-primary details-button" (click)="viewDetails(animal.animalid)">Voir les détails</button>
     </div>
   </div>

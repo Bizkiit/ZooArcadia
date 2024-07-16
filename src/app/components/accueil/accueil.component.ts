@@ -17,6 +17,7 @@ export class AccueilComponent  {
 
   constructor(private router: Router) {}
 
+
   navigateToHabitats(): void {
     this.router.navigate(['/habitats']);
   }
