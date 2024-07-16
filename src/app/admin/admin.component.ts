@@ -168,7 +168,7 @@ export class AdminComponent implements OnInit {
 
   addUser() {
     const user = { ...this.newUser };
-    this.apiService.post('users', user).subscribe(() => {
+    this.apiService.post('users', user, true).subscribe(() => {
       this.getUsers();
       this.newUser = { username: '', password: '', lastname: '', firstname: '', label: 'Employé' };
       this.toastr.success('Utilisateur ajouté avec succès');
@@ -179,7 +179,7 @@ export class AdminComponent implements OnInit {
 
   addService() {
     const service = { ...this.newService };
-    this.apiService.post('services', service).subscribe(() => {
+    this.apiService.post('services', service, true).subscribe(() => {
       this.getServices();
       this.newService = { serviceid: 0, name: '', description: '' };
       this.toastr.success('Service ajouté avec succès');
@@ -199,7 +199,7 @@ export class AdminComponent implements OnInit {
           imageBase64: base64Data
         };
 
-        this.apiService.post<Habitat>('habitats', habitatWithImage).subscribe(() => {
+        this.apiService.post<Habitat>('habitats', habitatWithImage, true).subscribe(() => {
           this.getHabitats();
           this.newHabitat = {
             habitatid: 0,
@@ -253,7 +253,7 @@ export class AdminComponent implements OnInit {
   }
 
   sendAnimal(animal: any): void {
-    this.apiService.post<AnimalWithImage>('Animals', animal).subscribe(newAnimal => {
+    this.apiService.post<AnimalWithImage>('Animals', animal, true).subscribe(newAnimal => {
       this.animals.push(newAnimal);
       this.resetNewAnimal();
       this.toastr.success('Animal ajouté avec succès');
@@ -279,7 +279,7 @@ export class AdminComponent implements OnInit {
       description: this.newRace.description
     };
 
-    this.apiService.post('AddRace', raceData).subscribe(
+    this.apiService.post('AddRace', raceData, true).subscribe(
       () => {
         this.getRaces();
         this.resetNewRace();
@@ -299,7 +299,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteUser(username: string) {
-    this.apiService.delete(`users/${username}`).subscribe(() => {
+    this.apiService.delete(`users/${username}`, true).subscribe(() => {
       this.getUsers();
       this.toastr.success('Utilisateur supprimé avec succès');
     }, error => {
@@ -308,7 +308,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteService(serviceid: number) {
-    this.apiService.delete(`services/${serviceid}`).subscribe(() => {
+    this.apiService.delete(`services/${serviceid}`, true).subscribe(() => {
       this.getServices();
       this.toastr.success('Service supprimé avec succès');
     }, error => {
@@ -317,7 +317,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteHabitat(habitatid: number) {
-    this.apiService.delete(`habitats/${habitatid}`).subscribe(() => {
+    this.apiService.delete(`habitats/${habitatid}`, true).subscribe(() => {
       this.getHabitats();
       this.toastr.success('Habitat supprimé avec succès');
     }, error => {
@@ -326,7 +326,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteAnimal(animalId: number): void {
-    this.apiService.delete(`Animals/${animalId}`).subscribe(() => {
+    this.apiService.delete(`Animals/${animalId}`, true).subscribe(() => {
       this.animals = this.animals.filter(a => a.animalid !== animalId);
       this.toastr.success('Animal supprimé avec succès');
     }, error => {
@@ -335,7 +335,7 @@ export class AdminComponent implements OnInit {
   }
 
   updateService(service: Service) {
-    this.apiService.put(`services/${service.serviceid}`, service).subscribe(() => {
+    this.apiService.put(`services/${service.serviceid}`, service, true).subscribe(() => {
       this.getServices();
       this.toastr.success('Service mis à jour avec succès');
     }, error => {
@@ -344,7 +344,7 @@ export class AdminComponent implements OnInit {
   }
 
   updateHabitat(habitat: Habitat) {
-    this.apiService.put(`habitats/${habitat.habitatid}`, habitat).subscribe(() => {
+    this.apiService.put(`habitats/${habitat.habitatid}`, habitat, true).subscribe(() => {
       this.getHabitats();
       this.toastr.success('Habitat mis à jour avec succès');
     }, error => {
@@ -375,7 +375,7 @@ export class AdminComponent implements OnInit {
   }
 
   sendUpdatedAnimal(animal: AnimalWithImage): void {
-    this.apiService.put(`Animals/${animal.animalid}`, animal).subscribe(() => {
+    this.apiService.put(`Animals/${animal.animalid}`, animal, true).subscribe(() => {
       this.toastr.success('Animal mis à jour avec succès');
     }, error => {
       this.toastr.error('Erreur lors de la mise à jour de l\'animal');

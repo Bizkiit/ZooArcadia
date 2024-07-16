@@ -65,7 +65,7 @@ export class EmployeComponent implements OnInit {
   }
 
   updateService(service: Service) {
-    this.apiService.put(`services/${service.serviceid}`, service).subscribe(() => {
+    this.apiService.put(`services/${service.serviceid}`, service, true).subscribe(() => {
       this.getServices();
       this.toastr.success('Service mis à jour avec succès');
     });
@@ -78,7 +78,7 @@ export class EmployeComponent implements OnInit {
         ...this.newFeeding,
         feedingdate: new Date(feedingDateTime).toISOString()
       };
-      this.apiService.post('AnimalFeedings', feeding).subscribe(() => {
+      this.apiService.post('AnimalFeedings', feeding, true).subscribe(() => {
         this.newFeeding = {
           animalid: 0,
           feedingdate: '',
@@ -99,7 +99,7 @@ export class EmployeComponent implements OnInit {
       isvisible: !review.isvisible
     };
   
-    this.apiService.put('Avis', updateAvis).subscribe(() => {
+    this.apiService.put('Avis', updateAvis, true).subscribe(() => {
       review.isvisible = !review.isvisible;
       this.toastr.success('Visibilité de l\'avis modifiée avec succès');
     });

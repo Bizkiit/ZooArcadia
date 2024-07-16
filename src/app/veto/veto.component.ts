@@ -73,7 +73,7 @@ export class VetoComponent implements OnInit {
         }
       };
       
-      this.apiService.post('RapportVeterinaires', report)
+      this.apiService.post('RapportVeterinaires', report, true)
         .pipe(
           catchError(error => {
             console.error('Error adding report:', error);
@@ -136,7 +136,7 @@ export class VetoComponent implements OnInit {
             animals: habitat.animal || [],
             habitatImageRelations: habitat.habitatimagerelation || []
         };
-        this.apiService.put(`RapportVeterinaires/UpdateHabitatComment`, updatedHabitat)
+        this.apiService.put(`RapportVeterinaires/UpdateHabitatComment`, updatedHabitat, true)
             .pipe(
                 catchError(error => {
                     console.error('Error updating habitat comment:', error);
