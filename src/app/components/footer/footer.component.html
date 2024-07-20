@@ -1,0 +1,11 @@
+<footer class="footer">
+    <div class="footer-content" *ngIf="footerData">
+      <p>Horaires : {{ footerData.hours }}</p>
+      <p class="address-part">{{ footerData.address1 }}</p>
+      <p class="address-part">{{ footerData.address2 }}</p>
+      <p class="address-part">{{ footerData.address3 }}</p>
+      <p class="email"><a href="mailto:{{ footerData.email }}">{{ footerData.email }}</a></p>
+    </div>
+  </footer>  
+
+

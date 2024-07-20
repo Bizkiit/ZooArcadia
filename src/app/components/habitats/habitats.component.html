@@ -1,0 +1,24 @@
+<app-header></app-header>
+<app-banner-title [title]="'Découvrez les habitats du ZOO Arcadia !'" [subtitle]="'“Où chaque pas éveille une nouvelle merveille.”'"></app-banner-title>
+<div class="container">
+  <div *ngFor="let habitat of habitats" class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ habitat.name }}</h5>
+      <div *ngIf="habitat.habitatimagerelation && habitat.habitatimagerelation.length > 0">
+        <div *ngFor="let relation of habitat.habitatimagerelation">
+          <img [src]="relation.image.imagedata" alt="{{ habitat.name }}" class="img-fluid mb-2 rounded-image">
+        </div>
+      </div>
+      <p class="card-text">
+        <span class="description-title">Description : </span>{{ habitat.description }}
+      </p>
+      <p class="card-text">
+        <span class="comment-title">État de l'habitat : </span>{{ habitat.comment }}
+      </p>
+      <button class="btn btn-primary" (click)="toggleAnimals(habitat.habitatid)">Voir les animaux</button>
+      <div *ngIf="selectedHabitatId === habitat.habitatid">
+        <app-animaux-par-habitat [habitatid]="selectedHabitatId"></app-animaux-par-habitat>
+      </div>
+    </div>
+  </div>
+</div>

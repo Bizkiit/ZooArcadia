@@ -1,0 +1,138 @@
+.admin-container {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.user-table,
+.service-table,
+.habitat-table,
+.animal-table,
+.add-user-form,
+.add-service-form,
+.add-habitat-form,
+.add-animal-form,
+.add-race-form {
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+h2, h3 {
+  margin-top: 50px;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+.form-control {
+  width: 100%;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.btn-primary {
+  background-color: #228B22;
+  border-color: #228B22;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.nav-link {
+  color: #F4A460;
+
+  &:hover,
+  &.active {
+    color: #D2691E;
+  }
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    display: none;
+  }
+
+  .card-view {
+    display: block;
+  }
+
+  .nav-tabs .nav-link {
+    font-size: 14px;
+  }
+
+  .form-control {
+    width: 100%;
+  }
+
+  th {
+    font-weight: bolder;
+  }
+
+  .card {
+    margin-bottom: 20px;
+  }
+
+  .card .form-group {
+    margin-bottom: 10px;
+  }
+
+  .card .form-control {
+    width: 100%;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .card label {
+    font-weight: bold;
+  }
+}
+
+@media (min-width: 769px) {
+  .card-view {
+    display: none;
+  }
+}

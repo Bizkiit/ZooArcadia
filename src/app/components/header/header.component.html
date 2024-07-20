@@ -1,0 +1,26 @@
+<section class="mb-3">
+  <nav class="navbar navbar-dark custom-navbar">
+    <div class="container-fluid">
+      <button class="navbar-toggler second-button" type="button" data-mdb-collapse-init
+      (click)="toggleIcon('animated-icon2')" aria-label="Toggle navigation">
+        <div class="animated-icon2"><span></span><span></span><span></span><span></span></div>
+      </button>
+      <a class="navbar-brand mx-auto" href="#">
+        <img src="../assets/DALLE2~1.PNG" alt="Logo" style="height: 100%;">
+      </a>
+    </div>
+  </nav>
+  <div class="collapse" id="navbarToggleExternalContent10">
+    <div class="bg-body-tertiary shadow-3 p-4">
+      <button class="btn btn-link btn-block m-0" routerLink="/">Accueil</button>
+      <button class="btn btn-link btn-block m-0" routerLink="/zooservices">Services</button>
+      <button class="btn btn-link btn-block m-0" routerLink="/habitats">Habitats</button>
+      <button class="btn btn-link btn-block m-0" *ngIf="!currentUser" routerLink="/login">Connexion</button>
+      <button class="btn btn-link btn-block m-0" routerLink="/contact">Contact</button>
+      <button class="btn btn-link btn-block m-0" *ngIf="currentUser" (click)="logout()">Déconnexion</button>
+      <button class="btn btn-link btn-block m-0" *ngIf="currentUser?.roleid === 1" routerLink="/admin">Admin Page</button>
+      <button class="btn btn-link btn-block m-0" *ngIf="currentUser?.roleid === 2" routerLink="/veto">Veto Page</button>
+      <button class="btn btn-link btn-block m-0" *ngIf="currentUser?.roleid === 3" routerLink="/employe">Employé Page</button>
+    </div>
+  </div>
+</section>

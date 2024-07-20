@@ -1,0 +1,42 @@
+.footer {
+  width: 100%;
+  background-color: #F4A460;
+  padding: 20px 15px;
+  box-sizing: border-box;
+  position: relative;
+  bottom: 0;
+  left: 0;
+
+  .footer-content {
+      text-align: center;
+      color: #FFFAF0;
+      font-size: 12px;
+  
+      a {
+          color: #FFFAF0;
+          text-decoration: none;
+  
+          &:hover {
+              text-decoration: underline;
+              color: #D2691E;
+          }
+      }
+  }
+}
+
+.footer-content p {
+  margin: 0 0 5px;
+}
+
+.footer-content p:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.footer-content .address-part {
+  margin-top: 0;
+  margin-bottom: 2px;
+}
+
+.footer-content .email {
+  margin-top: 20px;
+}
