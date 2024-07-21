@@ -9,11 +9,11 @@ Assurez-vous d'avoir les outils suivants installés sur votre machine :
 ## Installation 
 
 - Cloner les dépôts : git clone https://github.com/Bizkiit/ZooArcadia et https://github.com/Bizkiit/ZooArcadia.API
-## PostgreSQL :
+## PostgreSQL (utilisez le script fournis dans le répertoire `sql_scripts`):
 - Créez une base de données nommée ZooArcadia.
 - Créez un utilisateur avec les privilèges appropriés (Username = admin, Password = admin).
 
-## MongoDB :
+## MongoDB (utilisez le script fournis dans le répertoire `sql_scripts`):
 - Connectez vous en localhost:27017.
 - Créez une BDD ZooArcadia et une collection ZooArcadia.
 
