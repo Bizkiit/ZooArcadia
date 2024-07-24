@@ -22,7 +22,7 @@ export class FooterService {
   }
 
   updateFooterData(newData: Footer): Observable<Footer> {
-    return this.apiService.post<Footer>('footer', newData);
+    return this.apiService.post<Footer>('footer', newData, true);
   }
 
   getFooterData(): Footer | null {

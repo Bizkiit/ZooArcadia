@@ -1,0 +1,77 @@
+[{
+  "_id": {
+    "$oid": "66813ae2a1b356955d5e27bf"
+  },
+  "animalid": 2,
+  "clickcount": 17
+},
+{
+  "_id": {
+    "$oid": "66813bfaa1b356955d5e28a2"
+  },
+  "animalid": 6,
+  "clickcount": 4
+},
+{
+  "_id": {
+    "$oid": "6681668ea1b356955d5e42b6"
+  },
+  "animalid": 5,
+  "clickcount": 1
+},
+{
+  "_id": {
+    "$oid": "668166a9a1b356955d5e42ca"
+  },
+  "animalid": 8,
+  "clickcount": 2
+},
+{
+  "_id": {
+    "$oid": "668166afa1b356955d5e42cd"
+  },
+  "animalid": 10,
+  "clickcount": 3
+},
+{
+  "_id": {
+    "$oid": "668166b4a1b356955d5e42d4"
+  },
+  "animalid": 12,
+  "clickcount": 5
+},
+{
+  "_id": {
+    "$oid": "66938afb1bf309cd3cec2a27"
+  },
+  "animalid": 4,
+  "clickcount": 3
+},
+{
+  "_id": {
+    "$oid": "6693a1e11bf309cd3cec3733"
+  },
+  "animalid": 3,
+  "clickcount": 4
+},
+{
+  "_id": {
+    "$oid": "66950c441bf309cd3cec5bbf"
+  },
+  "animalid": 11,
+  "clickcount": 3
+},
+{
+  "_id": {
+    "$oid": "66950d481bf309cd3cec5c62"
+  },
+  "animalid": 9,
+  "clickcount": 4
+},
+{
+  "_id": {
+    "$oid": "66950d811bf309cd3cec5caf"
+  },
+  "animalid": 7,
+  "clickcount": 5
+}]

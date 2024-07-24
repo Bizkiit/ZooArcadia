@@ -320,14 +320,33 @@
   <div class="add-animal-form mb-3">
     <h3>Ajouter un Animal</h3>
     <form (ngSubmit)="addAnimal()">
-      <!-- Other form fields -->
+      <div class="form-group">
+        <label for="name">Nom</label>
+        <input type="text" id="name" [(ngModel)]="newAnimal.name" name="name" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="raceid">Race</label>
+        <select id="raceid" [(ngModel)]="newAnimal.raceid" name="raceid" class="form-control" required>
+          <option *ngFor="let race of races" [value]="race.raceid">{{ race.label }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="habitatid">Habitat</label>
+        <select id="habitatid" [(ngModel)]="newAnimal.habitatid" name="habitatid" class="form-control" required>
+          <option *ngFor="let habitat of habitats" [value]="habitat.habitatid">{{ habitat.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="status">État</label>
+        <input type="text" id="status" [(ngModel)]="newAnimal.status" name="status" class="form-control">
+      </div>
       <div class="form-group">
         <label for="imageFile">Image</label>
         <input type="file" id="imageFile" (change)="onFileChange($event)" class="form-control">
       </div>
       <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
-  </div>
+  </div> 
   <!-- Add Race Form -->
   <div class="add-race-form mb-3">
     <h3>Ajouter une Race</h3>
