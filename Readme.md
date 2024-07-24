@@ -20,7 +20,7 @@ Assurez-vous d'avoir les outils suivants installés sur votre machine :
 ## Backend
 
 - Restaurer les packages NuGet (dotnet restore).
-- Lancer l'API (Mode debug, IIS Express).
+- Lancer l'API (Mode debug, https).
 
 ## FrontEnd
 
